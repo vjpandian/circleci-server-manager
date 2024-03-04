@@ -10,16 +10,16 @@
              wget https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/checksums.txt
              ls -lah
              pwd
-             aws s3 rm s3://<< parameters.agent_bucket >> --recursive
+             aws s3 rm s3://$AGENT_BUCKET --recursive
              echo $CIRCLE_AGENT_VERSION > release.txt
              agent_version="$CIRCLE_AGENT_VERSION"
              gzip circleci-agent
-             aws s3 cp circleci-agent.gz s3://<< parameters.agent_bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz
-             aws s3 cp release.txt s3://<< parameters.agent_bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/release.txt
-             aws s3 cp checksums.txt s3://<< parameters.agent_bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/checksums.txt
+             aws s3 cp circleci-agent.gz s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz
+             aws s3 cp release.txt s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/release.txt
+             aws s3 cp checksums.txt s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/checksums.txt
              # Loop through each file path and set ACL
              for file in "${files[@]}"; do
-                 aws s3api put-object-acl --bucket << parameters.agent_bucket >> --key "$file" \
+                 aws s3api put-object-acl --bucket $AGENT_BUCKET --key "$file" \
                      --grant-full-control id=<< pipeline.parameters.canonical-id >> \
                      --grant-read uri=http://acs.amazonaws.com/groups/global/AllUsers \
                      --grant-read-acp uri=http://acs.amazonaws.com/groups/global/AllUsers
