@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Sample orb description
+  An orb for managing circleci server related tasks
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
