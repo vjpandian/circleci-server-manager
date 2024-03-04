@@ -1,5 +1,4 @@
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-  
 parameters:
   agent_bucket:
     type: string
@@ -15,4 +14,5 @@ steps:
         AGENT_BUCKET: << parameters.agent_bucket >>
         HELM_VERSION: << parameters.helm_version >>
       name: "Hello Greeting"
-      command: sh greet.sh
+      command: |
+          sh greet.sh
