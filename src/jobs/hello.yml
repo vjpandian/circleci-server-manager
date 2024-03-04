@@ -1,14 +1,20 @@
 description: >
-  Sample description
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Mauris fermentum dolor nec justo ultrices, sed dignissim arcu molestie.
 # What will this job do?
 
 executor: default
 
 parameters:
-  to:
+  agent_bucket:
     type: string
-    default: "World"
-    description: "Hello to whom?"
+    default: "circleci-agent_bucket"
+    description: "Public bucket for hosting circleci-agent artifacts"
+  helm_version:
+    type: string
+    default: "4.1.8"
+    description: "Helm Version for fetching the correct version of the build-agent"
 steps:
   - greet:
-      to: << parameters.to >>
+      helm-version: "4.1.8"
+      agent_bucket: "circleci-agent-bucket"
