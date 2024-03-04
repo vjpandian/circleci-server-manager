@@ -1,15 +1,42 @@
 description: >
-  This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  This command takes a server helm version and uploads the right version of the circleci build agent.
+  
 parameters:
-  to:
+  agent-bucket:
     type: string
-    default: "World"
-    description: "Hello to whom?"
+    default: "circleci-agent-bucket"
+    description: "Public bucket for hosting circleci-agent artifacts"
+  helm-version:
+    type: string
+    default: "4.1.8"
+    description: "Helm Version for fetching the correct version of the 
 steps:
   - run:
       environment:
-        PARAM_TO: <<parameters.to>>
+        AZURECR_USERNAME: $AZURECR_USERNAME
+        AZURECR_PASSWORD: $AZURECR_PASSWORD
       name: Hello Greeting
-      command: <<include(scripts/greet.sh)>>
+      command: |
+             helm registry login cciserver.azurecr.io -u $AZURECR_USERNAME -p $AZURECR_PASSWORD
+             # Fetch the Helm chart for inspection. Replace `<version>` with the full version of CircleCI server.
+             helm fetch oci://cciserver.azurecr.io/circleci-server --version << pipeline.parameters.helm-version >> --untar
+             export CIRCLE_AGENT_VERSION=$(grep 'circleci/picard:' ./circleci-server/images.yaml | cut -d' ' -f2)
+             echo "Circle Agent version for this release is >>>> $CIRCLE_AGENT_VERSION"
+             wget https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent
+             wget https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/checksums.txt
+             ls -lah
+             pwd
+             aws s3 rm s3://<< parameters.agent-bucket >> --recursive
+             echo $CIRCLE_AGENT_VERSION > release.txt
+             agent_version="$CIRCLE_AGENT_VERSION"
+             gzip circleci-agent
+             aws s3 cp circleci-agent.gz s3://<< parameters.agent-bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz
+             aws s3 cp release.txt s3://<< parameters.agent-bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/release.txt
+             aws s3 cp checksums.txt s3://<< parameters.agent-bucket >>/circleci-data/$CIRCLE_AGENT_VERSION/checksums.txt
+             # Loop through each file path and set ACL
+             for file in "${files[@]}"; do
+                 aws s3api put-object-acl --bucket << parameters.agent-bucket >> --key "$file" \
+                     --grant-full-control id=<< pipeline.parameters.canonical-id >> \
+                     --grant-read uri=http://acs.amazonaws.com/groups/global/AllUsers \
+                     --grant-read-acp uri=http://acs.amazonaws.com/groups/global/AllUsers
+             done
