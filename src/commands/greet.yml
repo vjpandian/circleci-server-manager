@@ -1,5 +1,4 @@
-description: >
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
   
 parameters:
   agent_bucket:
@@ -13,9 +12,7 @@ parameters:
 steps:
   - run:
       environment:
-        AZURECR_USERNAME: $AZURECR_USERNAME
-        AZURECR_PASSWORD: $AZURECR_PASSWORD
         AGENT_BUCKET: << parameters.agent_bucket >>
         HELM_VERSION: << parameters.helm_version >>
-      name: Hello Greeting
+      name: "Hello Greeting"
       command: sh greet.sh
