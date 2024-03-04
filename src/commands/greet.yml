@@ -9,7 +9,7 @@ parameters:
   helm-version:
     type: string
     default: "4.1.8"
-    description: "Helm Version for fetching the correct version of the 
+    description: "Helm Version for fetching the correct version of the build-agent"
 steps:
   - run:
       environment:
