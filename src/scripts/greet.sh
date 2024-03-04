@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo << parameters.agent_version >>
-echo << parameters.helm_version >>
+echo "<< parameters.agent_version >>"
+echo "<< parameters.helm_version >>"
 
 #helm registry login cciserver.azurecr.io -u $AZURECR_USERNAME -p $AZURECR_PASSWORD
 ## Fetch the Helm chart for inspection. Replace `<version>` with the full version of CircleCI server.
