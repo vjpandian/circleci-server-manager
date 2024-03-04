@@ -1,5 +1,5 @@
 description: >
-  This command takes a server helm version and uploads the right version of the circleci build agent.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit
   
 parameters:
   agent_bucket:
