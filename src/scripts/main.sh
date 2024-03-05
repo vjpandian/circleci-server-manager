@@ -31,7 +31,7 @@ aws s3 cp checksums.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/
 files=(circleci-agent.gz release.txt checksums.txt)
 for file in "${files[@]}"; do
     aws s3api put-object-acl --bucket "$AGENT_BUCKET" --key "$file" \
-        --grant-full-control "$AWS_CANONICAL_ID" \
+        --grant-full-control id="$AWS_CANONICAL_ID" \
         --grant-read uri=http://acs.amazonaws.com/groups/global/AllUsers \
         --grant-read-acp uri=http://acs.amazonaws.com/groups/global/AllUsers
 done
