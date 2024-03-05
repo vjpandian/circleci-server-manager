@@ -2,7 +2,7 @@ description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
 parameters:
   agent_bucket:
     type: string
-    default: "circleci-agent_bucket"
+    default: "circleci-agent-bucket"
     description: "Public bucket for hosting circleci-agent artifacts"
   helm_version:
     type: string
@@ -15,4 +15,4 @@ steps:
         HELM_VERSION: << parameters.helm_version >>
       name: "Hello Greeting"
       command: |
-          ls -lah
+          helm registry login cciserver.azurecr.io -u $AZURECR_USERNAME -p $AZURECR_PASSWORD

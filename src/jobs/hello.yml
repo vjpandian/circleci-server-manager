@@ -14,6 +14,7 @@ parameters:
     default: "4.1.8"
     description: "Helm Version for fetching the correct version of the build-agent"
 steps:
+  - checkout
   - greet:
       helm_version: "4.1.8"
       agent_bucket: "circleci-agent-bucket"
