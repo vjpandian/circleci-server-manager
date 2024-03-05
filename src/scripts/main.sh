@@ -20,7 +20,6 @@ pwd
 aws s3 rm "s3://$AGENT_BUCKET" --recursive
 
 echo "$CIRCLE_AGENT_VERSION" > release.txt
-agent_version="$CIRCLE_AGENT_VERSION"
 
 gzip circleci-agent
 
