@@ -24,10 +24,19 @@ jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
-    docker:
-      - image: alpine/helm:latest
+    machine:
+      image: ubuntu-2204:2023.10.1
+    resource_class: medium
+    environment:
+      TF_VERSION: 1.6.0
+      AWS_DEFAULT_REGION: us-east-2
     steps:
       - checkout
+      - run:
+          name: Install Prerequisites on Machine
+          command: |
+            curl -LO 'https://raw.githubusercontent.com/vjpandian/circleci-server4-manager/main/scripts/install_prereqs_machine.sh' > install_prereqs_machine.sh
+            sh install_prereqs_machine.sh
       - aws-cli/setup:
           profile_name: cci-server-test-user
       - circleci-server-manager/main
