@@ -10,4 +10,4 @@ usage:
   workflows:
     use-my-orb:
       jobs:
-        - circleci-server-manager/sync-circleci-agent
+        - circleci-server-manager/sync_circleci_agent

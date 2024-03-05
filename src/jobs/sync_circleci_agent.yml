@@ -7,7 +7,7 @@ executor: default
 parameters:
   agent_bucket:
     type: string
-    default: "circleci-agent_bucket"
+    default: "circleci-agent-bucket"
     description: "Public bucket for hosting circleci-agent artifacts"
   helm_version:
     type: string
@@ -15,6 +15,6 @@ parameters:
     description: "Helm Version for fetching the correct version of the build-agent"
 steps:
   - checkout
-  - main:
+  - sync_circleci_agent:
       helm_version: "4.1.8"
       agent_bucket: "circleci-agent-bucket"
