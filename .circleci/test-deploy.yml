@@ -48,4 +48,4 @@ workflows:
             - orb-tools/pack
             - command-test
           context: org-global
-          filters: *release-filters
+          #filters: *release-filters
