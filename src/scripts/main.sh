@@ -7,7 +7,7 @@ helm registry login cciserver.azurecr.io -u "$AZURECR_USERNAME" -p "$AZURECR_PAS
 ## Fetch the Helm chart for inspection. Replace `<version>` with the full version of CircleCI server.
 helm fetch oci://cciserver.azurecr.io/circleci-server --version "$HELM_VERSION" --untar
 export CIRCLE_AGENT_VERSION=$(grep 'circleci/picard:' ./circleci-server/images.yaml | cut -d' ' -f2)
-echo "Circle Agent version for this release is >>>> "$CIRCLE_AGENT_VERSION""
+echo "Circle Agent version for this release is >>>> $CIRCLE_AGENT_VERSION"
 wget https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/"$CIRCLE_AGENT_VERSION"/linux/amd64/circleci-agent
 wget https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/"$CIRCLE_AGENT_VERSION"/checksums.txt
 ls -lah
