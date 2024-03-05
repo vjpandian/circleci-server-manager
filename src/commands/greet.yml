@@ -15,4 +15,4 @@ steps:
         HELM_VERSION: << parameters.helm_version >>
       name: "Hello Greeting"
       command: |
-          sh scripts/greet.sh
+          ls -lah
