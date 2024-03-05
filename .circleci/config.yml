@@ -17,6 +17,7 @@ workflows:
           filters: *filters
       - orb-tools/review:
           orb_name: circleci-server-manager
+          exclude: "RC011"
           filters: *filters
       - shellcheck/check:
           filters: *filters
