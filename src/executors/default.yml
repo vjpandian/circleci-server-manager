@@ -1,12 +1,12 @@
 description: >
   Default executor for CircleCI Server Manager jobs
 
- machine:
-   image: ubuntu-2204:2023.10.1
-   resource_class: medium
-   environment:
-     TF_VERSION: 1.6.0
-     AWS_DEFAULT_REGION: us-east-2
+machine:
+  image: ubuntu-2204:2023.10.1
+  resource_class: medium
+  environment:
+    TF_VERSION: 1.6.0
+    AWS_DEFAULT_REGION: us-east-2
 
 #docker:
 #  - image: cimg/base:current
