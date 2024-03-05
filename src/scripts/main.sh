@@ -29,9 +29,9 @@ aws s3 cp checksums.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/
 
 # Loop through each file path and set ACL
 files=(
-    "circleci-data/$AGENT_VERSION/linux/amd64/circleci-agent.gz"
-    "circleci-data/$AGENT_VERSION/release.txt"
-    "circleci-data/$AGENT_VERSION/checksums.txt"
+    "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
+    "circleci-data/$CIRCLE_AGENT_VERSION/release.txt"
+    "circleci-data/$CIRCLE_AGENT_VERSION/checksums.txt"
 )
 
 for file in "${files[@]}"; do
