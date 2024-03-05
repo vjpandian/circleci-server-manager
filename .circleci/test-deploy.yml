@@ -3,6 +3,7 @@ orbs:
   # Your orb will be automatically injected here during the pipeline.
   # Reference your orb's jobs and commands below as they will exist when built.
   orb-tools: circleci/orb-tools@12.1
+  aws-cli: circleci/aws-cli@4.1.2
   # The orb definition is intentionally not included here. It will be injected into the pipeline.
   <orb-name>: {}
 
@@ -27,6 +28,8 @@ jobs:
       - image: alpine/helm:latest
     steps:
       - checkout
+      - aws-cli/setup:
+          profile_name: cci-server-test-user
       - circleci-server-manager/main
 workflows:
   test-deploy:
