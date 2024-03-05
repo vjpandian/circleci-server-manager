@@ -3,10 +3,9 @@ description: >
 
 parameters:
   version:
-    default: "2023.10.1"
+    default: 2023.10.1
     description: The image version to use when executing
     type: string
-    
 machine:
   image: ubuntu-2204:<< parameters.version >>
   resource_class: medium
