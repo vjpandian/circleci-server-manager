@@ -28,7 +28,12 @@ aws s3 cp release.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/re
 aws s3 cp checksums.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/checksums.txt"
 
 # Loop through each file path and set ACL
-files=(circleci-agent.gz release.txt checksums.txt)
+files=(
+    "circleci-data/$agent_version/linux/amd64/circleci-agent.gz"
+    "circleci-data/$agent_version/release.txt"
+    "circleci-data/$agent_version/checksums.txt"
+)
+
 for file in "${files[@]}"; do
     aws s3api put-object-acl --bucket "$AGENT_BUCKET" --key "$file" \
         --grant-full-control id="$AWS_CANONICAL_ID" \
