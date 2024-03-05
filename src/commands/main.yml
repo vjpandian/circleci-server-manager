@@ -13,5 +13,5 @@ steps:
       environment:
         AGENT_BUCKET: << parameters.agent_bucket >>
         HELM_VERSION: << parameters.helm_version >>
-      name: "Hello Greeting"
+      name: "Login to helm registry and fetch the circleci-agent version"
       command: <<include(scripts/main.sh)>>
