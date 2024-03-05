@@ -17,7 +17,7 @@ wget "https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_A
 ls -lah
 pwd
 
-aws s3 rm "s3://$AGENT_BUCKET" --recursive
+#aws s3 rm "s3://$AGENT_BUCKET" --recursive
 
 echo "$CIRCLE_AGENT_VERSION" > release.txt
 
