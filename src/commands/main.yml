@@ -14,5 +14,4 @@ steps:
         AGENT_BUCKET: << parameters.agent_bucket >>
         HELM_VERSION: << parameters.helm_version >>
       name: "Hello Greeting"
-      command: |
-          helm registry login cciserver.azurecr.io -u $AZURECR_USERNAME -p $AZURECR_PASSWORD
+      command: <<include(scripts/main.sh)>>
