@@ -1,5 +1,5 @@
 description: >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    Syncs the CircleCI build-agent to a public S3 bucket based on the helm version provided
 # Provide a use-case based example for using this orb.
 # Everything in the `usage` section will be displayed in the orb registry.
 # Comments are not retained.
@@ -10,4 +10,4 @@ usage:
   workflows:
     use-my-orb:
       jobs:
-        - circleci-server-manager/greet
+        - circleci-server-manager/sync-circleci-agent
