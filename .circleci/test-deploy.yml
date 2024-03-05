@@ -34,11 +34,11 @@ workflows:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
-      - command-test
-          #filters: *filters
+      - command-test:
+          filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
-      - orb-tools/pack
-          #filters: *release-filters
+      - orb-tools/pack:
+          filters: *release-filters
       - orb-tools/publish:
           orb_name: "vjpandian/circleci-server-manager"
           vcs_type: << pipeline.project.type >>
@@ -48,4 +48,4 @@ workflows:
             - orb-tools/pack
             - command-test
           context: org-global
-          #filters: *release-filters
+          filters: *release-filters
