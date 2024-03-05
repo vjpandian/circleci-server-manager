@@ -2,7 +2,7 @@ description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
 parameters:
   agent_bucket:
     type: string
-    default: "circleci-agent-bucket"
+    default: "cci-server-testing-agent-bucket"
     description: "Public bucket for hosting circleci-agent artifacts"
   helm_version:
     type: string
