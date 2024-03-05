@@ -39,7 +39,7 @@ jobs:
             sh install_prereqs_machine.sh
       - aws-cli/setup:
           profile_name: cci-server-test-user
-      - circleci-server-manager/main
+      - circleci-server-manager/sync-circleci-agent
 workflows:
   test-deploy:
     jobs:
