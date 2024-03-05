@@ -8,17 +8,24 @@ usage:
   orbs:
     server-manager: vjpandian/circleci-server-manager@0.0.2
   jobs:
-    steps:
-      - checkout
-      - run:
-          name: Install Prerequisites on Machine
-          command: |
-            curl -LO 'https://raw.githubusercontent.com/vjpandian/circleci-server4-manager/main/scripts/install_prereqs_machine.sh' > install_prereqs_machine.sh
-            sh install_prereqs_machine.sh
-      - aws-cli/setup:
-          profile_name: cci-server-test-user
-      - circleci-server-manager/sync_circleci_agent:
-          helm_version: "4.2.4"
+    my-job:
+      machine:
+        image: ubuntu-2204:2023.10.1
+      resource_class: medium
+      environment:
+        TF_VERSION: 1.6.0
+        AWS_DEFAULT_REGION: us-east-2
+      steps:
+        - checkout
+        - run:
+            name: Install Prerequisites on Machine
+            command: |
+              curl -LO 'https://raw.githubusercontent.com/vjpandian/circleci-server4-manager/main/scripts/install_prereqs_machine.sh' > install_prereqs_machine.sh
+              sh install_prereqs_machine.sh
+        - aws-cli/setup:
+            profile_name: cci-server-test-user
+        - circleci-server-manager/sync_circleci_agent:
+            helm_version: "4.2.4"
   workflows:
     use-my-orb:
       jobs:
