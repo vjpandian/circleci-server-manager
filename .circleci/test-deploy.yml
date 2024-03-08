@@ -40,7 +40,7 @@ jobs:
       - aws-cli/setup:
           profile_name: cci-server-test-user
       - circleci-server-manager/sync_circleci_agent:
-          helm_version: "4.2.4"
+          helm_version: "4.1.8"
 workflows:
   test-deploy:
     jobs:
