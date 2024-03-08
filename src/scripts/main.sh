@@ -9,20 +9,21 @@ helm registry login cciserver.azurecr.io -u "$AZURECR_USERNAME" -p "$AZURECR_PAS
 helm fetch oci://cciserver.azurecr.io/circleci-server --version "$HELM_VERSION" --untar
 
 CIRCLE_AGENT_VERSION=$(grep 'circleci/picard:' ./circleci-server/images.yaml | cut -d' ' -f2)
+
 echo "Circle Agent version for this release is >>>> $CIRCLE_AGENT_VERSION"
 
-wget "https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent"
-wget "https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/checksums.txt"
+curl "https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent" -o circleci-agent --compressed 2>/dev/null
+curl "https://circleci-binary-releases.s3.amazonaws.com/circleci-agent/$CIRCLE_AGENT_VERSION/checksums.txt" -o checksums.txt
 
-ls -lah
-pwd
+#ls -lah
+#pwd
 
 aws s3 rm "s3://$AGENT_BUCKET" --recursive
 
 echo "$CIRCLE_AGENT_VERSION" > release.txt
 
+aws s3 cp circleci-agent.gz "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent"
 gzip circleci-agent
-
 aws s3 cp circleci-agent.gz "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
 aws s3 cp release.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/release.txt"
 aws s3 cp release.txt "s3://$AGENT_BUCKET/circleci-data/release.txt"
@@ -30,6 +31,7 @@ aws s3 cp checksums.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/
 
 # Loop through each file path and set ACL
 files=(
+    "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
     "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
     "circleci-data/$CIRCLE_AGENT_VERSION/release.txt"
     "circleci-data/release.txt"
