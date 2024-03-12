@@ -22,7 +22,7 @@ aws s3 rm "s3://$AGENT_BUCKET" --recursive
 
 echo "$CIRCLE_AGENT_VERSION" > release.txt
 
-aws s3 cp circleci-agent.gz "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent"
+aws s3 cp circleci-agent "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent"
 gzip circleci-agent
 aws s3 cp circleci-agent.gz "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
 aws s3 cp release.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/release.txt"
@@ -31,7 +31,7 @@ aws s3 cp checksums.txt "s3://$AGENT_BUCKET/circleci-data/$CIRCLE_AGENT_VERSION/
 
 # Loop through each file path and set ACL
 files=(
-    "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
+    "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent"
     "circleci-data/$CIRCLE_AGENT_VERSION/linux/amd64/circleci-agent.gz"
     "circleci-data/$CIRCLE_AGENT_VERSION/release.txt"
     "circleci-data/release.txt"
